@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  flask_app:
+    image: leo4life/cc-hw3-flask:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_HOST=mongodb://mongo:27017/my_database
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
