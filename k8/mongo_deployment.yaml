@@ -19,11 +19,11 @@ spec:
         - containerPort: 27017
         volumeMounts:
         - name: mongo-data
-          mountPath: /data/db
+          mountPath: /config
       volumes:
       - name: mongo-data
-        persistentVolumeClaim:
-          claimName: mongo-pvc
+        hostPath:
+          path: /data/k8s
 ---
 apiVersion: v1
 kind: Service
@@ -37,14 +37,3 @@ spec:
       port: 27017
       targetPort: 27017
   clusterIP: None
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mongo-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
