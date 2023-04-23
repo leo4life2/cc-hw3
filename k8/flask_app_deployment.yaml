@@ -21,15 +21,18 @@ spec:
         - name: MONGO_HOST
           value: mongodb://mongo-service:27017/my_database
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /list
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
+    restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
